@@ -13,11 +13,22 @@ test('renders without errors', ()=>{
     render(<ContactForm />);
 });
 
-test('renders the contact form header', ()=> {
-    
+test('renders the contact form header', () => {
+    render(<ContactForm />);
+    const headerElem = screen.queryByText(/contact form/i);
+    expect(headerElem).toBeInTheDocument();
 });
 
 test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
+    //arrange 
+    render(<ContactForm />);
+    const firstNameInput = screen.getByLabelText(/first name*/i);
+    //act
+    userEvent.type(firstNameInput, "name");
+    // console.log(firstNameInput.value);
+    //assert
+    const firstNameInputError = screen.queryByText(/firstName must have at least 5 characters./i);
+    console.log(firstNameInputError);
     
 });
 
